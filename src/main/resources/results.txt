@@ -1,0 +1,7 @@
+1|(A) What is the first name of Dicaprio ?|Leonardo|GREEN
+1|(B) What is the number between one and three ?|Two|ORANGE
+1|(C) What is the fresh translation for 'apple'|Pomme|RED
+1|(C) What is the fresh translation for 'apple'|Pomme|ORANGE
+2|(C) What is the fresh translation for 'apple'|Pomme|GREEN
+2|(B) What is the number between one and three ?|Two|ORANGE
+3|(A) What is the first name of Dicaprio ?|Leonardo|GREEN
