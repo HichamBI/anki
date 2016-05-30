@@ -18,16 +18,7 @@ public class KnowledgeCalculator {
 
 
     public int evaluateCard(Card card, CardEvaluation cardEvaluation) {
-        switch (cardEvaluation) {
-            case GREEN:
-                return calculateKnowledge(card, CardEvaluation.GREEN.getRange());
-            case ORANGE:
-                return calculateKnowledge(card, CardEvaluation.ORANGE.getRange());
-            case RED:
-                return calculateKnowledge(card, CardEvaluation.RED.getRange());
-            default:
-                return 1;
-        }
+        return calculateKnowledge(card, cardEvaluation.getRange());
     }
 
     private int calculateKnowledge(Card card, int range) {

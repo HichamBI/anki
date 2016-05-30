@@ -14,22 +14,8 @@ export default class Game extends React.Component {
     }
 
     componentDidMount() {
-        this.fetch("http://localhost:8080/anki/startGame");
-    }
-
-    nextCard() {
-        this.fetch("http://localhost:8080/anki/currentCard");
-    }
-
-    flipCard() {
-        this.setState({
-            cardState: this.state.cardState === "flipped" ? '' : "flipped"
-        });
-    }
-
-    fetch(url) {
         $.ajax({
-            url: url,
+            url: "http://localhost:8080/anki/startGame",
             dataType: 'json',
             success: function (data) {
                 this.setState({
@@ -44,6 +30,10 @@ export default class Game extends React.Component {
     }
 
     submitEvaluation(evaluation) {
+        if (this.state.cardState === "flipped") {
+            this.state.cardState = '';
+        }
+
         $.ajax({
             type: "POST",
             dataType: 'json',
@@ -60,14 +50,25 @@ export default class Game extends React.Component {
             }.bind(this)
         });
     }
-    
+
+    flipCard() {
+        this.setState({
+            cardState: this.state.cardState === "flipped" ? '' : "flipped"
+        });
+    }
+
     render() {
         return <div>
             <Card question={this.state.question} answer={this.state.answer} cardState={this.state.cardState}/>
-            <Button text="Red" onClick={this.submitEvaluation.bind(this, "RED")}/>
-            <Button text="Green" onClick={this.submitEvaluation.bind(this, "GREEN")}/>
-            <Button text="Orange" onClick={this.submitEvaluation.bind(this, "ORANGE")}/>
-            <Button text="Flip Card" onClick={this.flipCard.bind(this)}/>
+
+            <div className="evaluationButtons">
+                <Button text="Red" onClick={this.submitEvaluation.bind(this, "RED")}/>
+                <Button text="Green" onClick={this.submitEvaluation.bind(this, "GREEN")}/>
+                <Button text="Orange" onClick={this.submitEvaluation.bind(this, "ORANGE")}/>
+            </div>
+            <div className="flipButton">
+                <Button text="Flip Card" onClick={this.flipCard.bind(this)}/>
+            </div>
         </div>
     }
 }

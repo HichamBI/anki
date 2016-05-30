@@ -20,12 +20,10 @@ import java.io.File;
 @Service
 public class GameService {
 
-    private static final Logger log = Logger.getLogger(FileResultsProcessor.class);
-
     @Autowired Game game;
 
     public Card initGame() {
-        return game.init(new File("/home/hei/IdeaProjects/anki/src/main/resources/cards.txt"));
+        return game.init(new File("src/main/resources/cards.txt"));
     }
 
     public Card submitEvaluation(String evaluation) {

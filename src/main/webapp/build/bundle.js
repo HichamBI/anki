@@ -20892,25 +20892,8 @@
 	    _createClass(Game, [{
 	        key: "componentDidMount",
 	        value: function componentDidMount() {
-	            this.fetch("http://localhost:8080/anki/startGame");
-	        }
-	    }, {
-	        key: "nextCard",
-	        value: function nextCard() {
-	            this.fetch("http://localhost:8080/anki/currentCard");
-	        }
-	    }, {
-	        key: "flipCard",
-	        value: function flipCard() {
-	            this.setState({
-	                cardState: this.state.cardState === "flipped" ? '' : "flipped"
-	            });
-	        }
-	    }, {
-	        key: "fetch",
-	        value: function fetch(url) {
 	            _jquery2.default.ajax({
-	                url: url,
+	                url: "http://localhost:8080/anki/startGame",
 	                dataType: 'json',
 	                success: function (data) {
 	                    this.setState({
@@ -20926,6 +20909,10 @@
 	    }, {
 	        key: "submitEvaluation",
 	        value: function submitEvaluation(evaluation) {
+	            if (this.state.cardState === "flipped") {
+	                this.state.cardState = '';
+	            }
+	
 	            _jquery2.default.ajax({
 	                type: "POST",
 	                dataType: 'json',
@@ -20943,16 +20930,31 @@
 	            });
 	        }
 	    }, {
+	        key: "flipCard",
+	        value: function flipCard() {
+	            this.setState({
+	                cardState: this.state.cardState === "flipped" ? '' : "flipped"
+	            });
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
 	                null,
 	                _react2.default.createElement(_card2.default, { question: this.state.question, answer: this.state.answer, cardState: this.state.cardState }),
-	                _react2.default.createElement(_button2.default, { text: "Red", onClick: this.submitEvaluation.bind(this, "RED") }),
-	                _react2.default.createElement(_button2.default, { text: "Green", onClick: this.submitEvaluation.bind(this, "GREEN") }),
-	                _react2.default.createElement(_button2.default, { text: "Orange", onClick: this.submitEvaluation.bind(this, "ORANGE") }),
-	                _react2.default.createElement(_button2.default, { text: "Flip Card", onClick: this.flipCard.bind(this) })
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "evaluationButtons" },
+	                    _react2.default.createElement(_button2.default, { text: "Red", onClick: this.submitEvaluation.bind(this, "RED") }),
+	                    _react2.default.createElement(_button2.default, { text: "Green", onClick: this.submitEvaluation.bind(this, "GREEN") }),
+	                    _react2.default.createElement(_button2.default, { text: "Orange", onClick: this.submitEvaluation.bind(this, "ORANGE") })
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "flipButton" },
+	                    _react2.default.createElement(_button2.default, { text: "Flip Card", onClick: this.flipCard.bind(this) })
+	                )
 	            );
 	        }
 	    }]);
